@@ -2,7 +2,9 @@
 
 namespace App\Http\Requests;
 
+use App\Enum\UserType;
 use App\Models\User;
+use Illuminate\Validation\Rules\Enum;
 use Illuminate\Validation\Rules\Password;
 
 class UserFormRequest extends CrudRequest
@@ -46,7 +48,15 @@ class UserFormRequest extends CrudRequest
     {
         return [
             'name' => ['required'],
-            'email' => ['required', 'email']
+            'email' => ['required', 'email'],
+            'type' => ['required', new Enum(UserType::class)]
+        ];
+    }
+
+    public function attributes(): array
+    {
+        return [
+            'type' => 'Tipo'
         ];
     }
 }
