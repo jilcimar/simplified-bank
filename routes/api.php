@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\AuthController;
 
 /*
 |--------------------------------------------------------------------------
@@ -15,9 +16,9 @@ use App\Http\Controllers\UserController;
 |
 */
 
-Route::controller(UserController::class)->prefix('users')->group(function () {
-    Route::post('', 'store')->name('users.store');
-});
+Route::post('login', [AuthController::class, 'login'])->name('login');
+
+Route::post('users', [UserController::class, 'store'])->name('users.store');
 
 Route::middleware('auth:sanctum')->group(function () {
     Route::controller(UserController::class)->prefix('users')->group(function () {
@@ -25,4 +26,6 @@ Route::middleware('auth:sanctum')->group(function () {
         Route::put('{user}', 'update')->name('users.update');
         Route::delete('{user}', 'destroy')->name('users.destroy');
     });
+
+    Route::post('logout', [AuthController::class, 'logout'])->name('logout');
 });
