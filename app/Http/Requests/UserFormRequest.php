@@ -6,6 +6,8 @@ use App\Enum\UserType;
 use App\Models\User;
 use Illuminate\Validation\Rules\Enum;
 use Illuminate\Validation\Rules\Password;
+use LaravelLegends\PtBrValidator\Rules\Cnpj;
+use LaravelLegends\PtBrValidator\Rules\Cpf;
 
 class UserFormRequest extends CrudRequest
 {
@@ -25,7 +27,6 @@ class UserFormRequest extends CrudRequest
     protected function createRules(): array
     {
         return [
-            'email' => ['required', 'email', 'unique:users'],
             'password' => [
                 'required',
                 'confirmed',
@@ -35,6 +36,16 @@ class UserFormRequest extends CrudRequest
                     ->numbers()
                     ->symbols()
                     ->uncompromised()
+            ],
+            'cpf' => [
+                'required_if:type,person',
+                'string',
+                new Cpf()
+            ],
+            'cnpj' => [
+                'required_if:type,company',
+                'string',
+                new Cnpj()
             ],
         ];
     }
@@ -48,7 +59,7 @@ class UserFormRequest extends CrudRequest
     {
         return [
             'name' => ['required'],
-            'email' => ['required', 'email'],
+            'email' => ['required', 'email', 'unique:users'],
             'type' => ['required', new Enum(UserType::class)]
         ];
     }
