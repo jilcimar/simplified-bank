@@ -1,6 +1,5 @@
 <?php
 
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserController;
 
@@ -20,7 +19,7 @@ Route::controller(UserController::class)->prefix('users')->group(function () {
     Route::post('', 'store')->name('users.store');
 });
 
-Route::middleware('auth:sanctum')->group( function () {
+Route::middleware('auth:sanctum')->group(function () {
     Route::controller(UserController::class)->prefix('users')->group(function () {
         Route::get('', 'index')->name('users.index');
         Route::put('{user}', 'update')->name('users.update');
