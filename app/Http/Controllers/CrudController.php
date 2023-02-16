@@ -40,8 +40,6 @@ abstract class CrudController extends Controller
 
     public function show($id): Model | JsonResource | JsonResponse
     {
-        $this->authorize('view', $this->model);
-
         $resource = $this->repository->find($id);
 
         if (!$resource) {
@@ -53,8 +51,6 @@ abstract class CrudController extends Controller
 
     public function update($id)
     {
-        $this->authorize('update', $this->model);
-
         $resource = $this->repository->find($id);
 
         if ($resource) {
@@ -67,8 +63,6 @@ abstract class CrudController extends Controller
 
     public function destroy($id): Model|JsonResource|JsonResponse
     {
-        $this->authorize('delete', $this->model);
-
         $resource = $this->repository->find($id);
 
         if ($resource) {
