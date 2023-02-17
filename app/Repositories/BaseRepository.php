@@ -2,6 +2,7 @@
 
 namespace App\Repositories;
 
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Resources\Json\JsonResource;
 use Illuminate\Pagination\LengthAwarePaginator;
 use Illuminate\Support\Collection;
@@ -49,7 +50,7 @@ class BaseRepository
     /**
      * Handles model before store.
      */
-    public function beforeStore(Collection|array $attributes): Model|JsonResource
+    public function beforeStore(Collection|array $attributes): Model|JsonResource|JsonResponse
     {
         return $this->create($attributes, true);
     }
@@ -57,7 +58,7 @@ class BaseRepository
     /**
      * Store a newly created resource in storage.
      */
-    public function create(Collection|array $attributes, bool $exec = false): Model|JsonResource
+    public function create(Collection|array $attributes, bool $exec = false): Model|JsonResource|JsonResponse
     {
         if (!$exec) {
             return $this->beforeStore($attributes);

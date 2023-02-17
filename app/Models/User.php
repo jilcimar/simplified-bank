@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use App\Enum\UserType;
+use App\Models\Relations\BelongsToWallet;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Foundation\Auth\User as Authenticatable;
@@ -15,6 +16,7 @@ class User extends Authenticatable
     use HasFactory;
     use Notifiable;
     use SoftDeletes;
+    use BelongsToWallet;
 
     /**
      * The attributes that are mass assignable.
@@ -28,6 +30,7 @@ class User extends Authenticatable
         'type',
         'cpf',
         'cnpj',
+        'wallet_id',
     ];
 
     /**
@@ -40,6 +43,7 @@ class User extends Authenticatable
         'password',
         'cpf',
         'remember_token',
+        'wallet_id',
     ];
 
     /**

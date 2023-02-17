@@ -16,7 +16,7 @@ class Transaction extends Model
      */
     protected $fillable = [
         'value',
-        'payer',
-        'payee',
+        'payer_id',
+        'payee_id',
     ];
 }

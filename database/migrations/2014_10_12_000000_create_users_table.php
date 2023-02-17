@@ -22,6 +22,7 @@ return new class extends Migration
             $table->string('cpf')->nullable()->unique()->index();
             $table->string('cnpj')->nullable()->unique()->index();
             $table->string('type');
+            $table->foreignId('wallet_id')->constrained();
             $table->rememberToken();
             $table->timestamps();
             $table->softDeletes();

@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\TransactionController;
 
 /*
 |--------------------------------------------------------------------------
@@ -26,6 +27,8 @@ Route::middleware('auth:sanctum')->group(function () {
         Route::put('{user}', 'update')->name('users.update');
         Route::delete('{user}', 'destroy')->name('users.destroy');
     });
+
+    Route::post('transaction', [TransactionController::class, 'store'])->name('transactions.store');
 
     Route::post('logout', [AuthController::class, 'logout'])->name('logout');
 });
