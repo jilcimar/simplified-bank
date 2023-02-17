@@ -7,6 +7,7 @@ use App\Repositories\BaseRepository;
 use App\Repositories\Users\UserRepository;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Resources\Json\JsonResource;
+use Illuminate\Support\Facades\Http;
 
 class TransactionRepository extends BaseRepository
 {
@@ -19,11 +20,8 @@ class TransactionRepository extends BaseRepository
     {
         $attributes['payer_id'] = $attributes['payer'];
         $attributes['payee_id'] = $attributes['payee'];
-        dd('Processo de validação');
-        #TODO::
-        #Antes de finalizar a transferência, deve-se consultar um serviço autorizador externo,
-        # use este mock para simular (https://run.mocky.io/v3/8fafdd68-a090-496f-8c9a-3442cf30dae6).
 
+        #TODO::
         #No recebimento de pagamento, o usuário ou lojista precisa
         # receber notificação (envio de email, sms) enviada por um
         # serviço de terceiro e eventualmente este serviço pode estar

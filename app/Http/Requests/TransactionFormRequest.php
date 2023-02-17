@@ -4,6 +4,7 @@ namespace App\Http\Requests;
 
 use App\Enum\UserType;
 use App\Models\Transaction;
+use App\Rules\TransactionAuthorizationRule;
 use App\Rules\TypeUserPersonRule;
 use App\Rules\WalletBalanceRule;
 use Illuminate\Validation\Rule;
@@ -25,7 +26,8 @@ class TransactionFormRequest extends CrudRequest
     protected function baseRules(): array
     {
         return [
-            'value' => ['required', 'numeric', new WalletBalanceRule()],
+            'value' => ['required', 'numeric', new WalletBalanceRule(),
+                new TransactionAuthorizationRule()],
             'payer' => ['required', 'exists:users,id', 'different:payee', new TypeUserPersonRule()],
             'payee' => ['required', 'exists:users,id']
         ];
