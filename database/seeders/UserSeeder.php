@@ -5,6 +5,7 @@ namespace Database\Seeders;
 use App\Enum\UserType;
 use App\Models\User;
 use App\Models\Wallet;
+use Faker\Factory;
 use Illuminate\Database\Seeder;
 
 class UserSeeder extends Seeder
@@ -24,13 +25,16 @@ class UserSeeder extends Seeder
             'amount' => 1000,
         ]);
 
+        $faker = Factory::create('pt_BR');
+
         User::create(
             [
                 'name' => 'User Payer 1',
                 'email' => 'payer@email.com',
                 'password' => bcrypt('password'),
                 'type' => UserType::Person->value,
-                'wallet_id' => $walletPayer->id
+                'wallet_id' => $walletPayer->id,
+                'cpf' => str_replace('.', '', $faker->cpf)
             ]
         );
 
@@ -40,7 +44,8 @@ class UserSeeder extends Seeder
                 'email' => 'payee@email.com',
                 'password' => bcrypt('password'),
                 'type' => UserType::Company->value,
-                'wallet_id' => $walletPayee->id
+                'wallet_id' => $walletPayee->id,
+                'cnpj' => str_replace(['.', '/' , '-'], '', $faker->cnpj)
             ]
         );
     }
