@@ -2,12 +2,11 @@
 
 namespace App\Http\Requests;
 
-use App\Enum\UserType;
 use App\Models\Transaction;
+use App\Rules\AuthenticatedUserRule;
 use App\Rules\TransactionAuthorizationRule;
 use App\Rules\TypeUserPersonRule;
 use App\Rules\WalletBalanceRule;
-use Illuminate\Validation\Rule;
 
 class TransactionFormRequest extends CrudRequest
 {
@@ -28,7 +27,8 @@ class TransactionFormRequest extends CrudRequest
         return [
             'value' => ['required', 'numeric', new WalletBalanceRule(),
                 new TransactionAuthorizationRule()],
-            'payer' => ['required', 'exists:users,id', 'different:payee', new TypeUserPersonRule()],
+            'payer' => ['required', 'exists:users,id', 'different:payee', new TypeUserPersonRule(),
+                new AuthenticatedUserRule()],
             'payee' => ['required', 'exists:users,id']
         ];
     }
