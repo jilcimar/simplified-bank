@@ -2,8 +2,6 @@
 
 namespace App\Rules;
 
-use App\Enum\UserType;
-use App\Repositories\Users\UserRepository;
 use Illuminate\Contracts\Validation\InvokableRule;
 
 class AuthenticatedUserRule implements InvokableRule
