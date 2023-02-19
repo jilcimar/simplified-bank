@@ -2,10 +2,11 @@
 
 namespace App\Repositories\Payments;
 
+use App\Http\Resources\TransactionResource;
 use App\Models\Transaction;
+use App\Models\WalletExtract;
 use App\Repositories\BaseRepository;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Resources\Json\JsonResource;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\DB;
@@ -17,7 +18,7 @@ class TransactionRepository extends BaseRepository
         parent::__construct(new Transaction());
     }
 
-    public function beforeStore($attributes): JsonResource|Transaction|JsonResponse
+    public function beforeStore($attributes): JsonResource|Transaction
     {
         $attributes['payer_id'] = $attributes['payer'];
         $attributes['payee_id'] = $attributes['payee'];
@@ -40,17 +41,21 @@ class TransactionRepository extends BaseRepository
             $payee->wallet->amount += $resource->value;
             $payee->wallet->save();
 
+            WalletExtract::create([
+                'wallet_id' => $payer->wallet->id,
+                'amount' => $payer->wallet->amount,
+            ]);
+
+            WalletExtract::create([
+                'wallet_id' => $payee->wallet->id,
+                'amount' => $payee->wallet->amount,
+            ]);
+
             DB::commit();
         } catch (\Exception) {
             DB::rollBack();
         }
 
-        #TODO::
-        #No recebimento de pagamento, o usuário ou lojista precisa
-        # receber notificação (envio de email, sms) enviada por um
-        # serviço de terceiro e eventualmente este serviço pode estar
-        # indisponível/instável. Use este mock para simular o envio (http://o4d9z.mocklab.io/notify).
-
-        return $resource;
+        return new TransactionResource($resource);
     }
 }

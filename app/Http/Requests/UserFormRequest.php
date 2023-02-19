@@ -39,11 +39,13 @@ class UserFormRequest extends CrudRequest
             ],
             'cpf' => [
                 'required_if:type,person',
+                'unique:users',
                 'string',
                 new Cpf()
             ],
             'cnpj' => [
                 'required_if:type,company',
+                'unique:users',
                 'string',
                 new Cnpj()
             ],
@@ -57,6 +59,7 @@ class UserFormRequest extends CrudRequest
      */
     protected function baseRules(): array
     {
+        #TODO:: Lembrar de validar unique o CNPJ
         return [
             'name' => ['required'],
             'email' => ['required', 'email', 'unique:users'],

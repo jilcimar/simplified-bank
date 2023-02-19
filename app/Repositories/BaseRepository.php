@@ -50,7 +50,7 @@ class BaseRepository
     /**
      * Handles model before store.
      */
-    public function beforeStore(Collection|array $attributes): Model|JsonResource|JsonResponse
+    public function beforeStore(Collection|array $attributes): Model|JsonResource
     {
         return $this->create($attributes, true);
     }
@@ -58,7 +58,7 @@ class BaseRepository
     /**
      * Store a newly created resource in storage.
      */
-    public function create(Collection|array $attributes, bool $exec = false): Model|JsonResource|JsonResponse
+    public function create(Collection|array $attributes, bool $exec = false): Model|JsonResource
     {
         if (!$exec) {
             return $this->beforeStore($attributes);
