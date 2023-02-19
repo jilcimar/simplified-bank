@@ -19,7 +19,7 @@ class AuthenticatedUserRule implements InvokableRule
     public function __invoke($attribute, $value, $fail)
     {
         if (auth()->user()->id != $value) {
-            $fail(trans('errors.permission_denied'));
+            $fail(trans('errors.permission_denied_unauthenticated'));
         }
     }
 }
