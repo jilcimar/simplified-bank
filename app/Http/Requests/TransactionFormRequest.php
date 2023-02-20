@@ -25,7 +25,7 @@ class TransactionFormRequest extends CrudRequest
     protected function baseRules(): array
     {
         return [
-            'value' => ['required', 'numeric', new WalletBalanceRule(),
+            'value' => ['required', 'numeric','min:1', new WalletBalanceRule(),
                 new TransactionAuthorizationRule()],
             'payer' => ['required', 'exists:users,id', 'different:payee', new TypeUserPersonRule(),
                 new AuthenticatedUserRule()],

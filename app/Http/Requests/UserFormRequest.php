@@ -59,7 +59,6 @@ class UserFormRequest extends CrudRequest
      */
     protected function baseRules(): array
     {
-        #TODO:: Lembrar de validar unique o CNPJ
         return [
             'name' => ['required'],
             'email' => ['required', 'email', 'unique:users'],

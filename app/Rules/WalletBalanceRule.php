@@ -18,7 +18,7 @@ class WalletBalanceRule implements InvokableRule
     public function __invoke($attribute, $value, $fail)
     {
         $payer = (new UserRepository())->find(request('payer'));
-        if ($payer->wallet->amount <= $value || $payer->wallet->amount === 0) {
+        if ($payer->wallet->amount <= $value) {
             $fail(trans('errors.insufficient_funds'));
         }
     }
