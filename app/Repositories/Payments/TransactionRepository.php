@@ -10,6 +10,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\Resources\Json\JsonResource;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Str;
 
 class TransactionRepository extends BaseRepository
 {
@@ -22,7 +23,7 @@ class TransactionRepository extends BaseRepository
     {
         $attributes['payer_id'] = $attributes['payer'];
         $attributes['payee_id'] = $attributes['payee'];
-
+        $attributes['uuid'] = Str::uuid()->toString() . now()->format('Y-m-d-H-m-s-i');
 
         return parent::beforeStore($attributes);
     }

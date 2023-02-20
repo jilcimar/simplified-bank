@@ -15,10 +15,11 @@ class TransactionResource extends JsonResource
     public function toArray($request)
     {
         return [
+            'uuid' => $this->uuid,
             'payer' => $this->payer->email,
             'payee' => $this->payee->email,
             'value' => $this->value,
-            'created_at' => $this->created_at->format('d/m/Y H:i:s'),
+            'created_at' => $this->created_at->format('d/m/Y H:i:s')
         ];
     }
 }

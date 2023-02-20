@@ -22,5 +22,6 @@ class Transaction extends Model
         'value',
         'payer_id',
         'payee_id',
+        'uuid'
     ];
 }
