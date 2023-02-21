@@ -3,6 +3,7 @@
 namespace App\Repositories\Payments;
 
 use App\Http\Resources\TransactionResource;
+use App\Jobs\PaymentNotification;
 use App\Models\Transaction;
 use App\Models\WalletExtract;
 use App\Repositories\BaseRepository;
@@ -45,6 +46,8 @@ class TransactionRepository extends BaseRepository
 
             $this->saveExtract($payer->wallet->id, $payer->wallet->amount);
             $this->saveExtract($payee->wallet->id, $payee->wallet->amount);
+
+            PaymentNotification::dispatch();
 
             DB::commit();
         } catch (\Exception) {
