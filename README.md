@@ -1,7 +1,9 @@
-## Banco Simplificado - BACK-END
-
+# Banco Simplificado - BACK-END
 Este projeto é uma API RESTFul de um "banco simplificado".
 A modelagem do Banco de Dados pode ser encontrada em: https://github.com/jilcimar/simplified-bank/blob/main/docs/der.png
+
+## Documentação 🚧
+A documentação dos endpoint, pode ser consultada aqui: https://github.com/jilcimar/simplified-bank/tree/main/docs (README).
 
 ### Dependências 💻
 É necessário ter em sua máquina:
@@ -45,15 +47,14 @@ Agora, entrando no container do "Sail-8.1/app" é só rodar o comando para execu
 $ php artisan migrate --seed
 ```
 
-Foram cadastrados 2 usuários para testes, já com saldos nas suas respectivas carteiras. 
-
-```json
+Foram cadastrados 2 usuários para testes, já com saldos nas suas respectivas carteiras.
+```
     email: payer@email.com,
     senha: password
 ```
 Tipo Person (pessoa física)
 
-```json
+```
     email: payee@email.com,
     senha: password
 ```
@@ -65,6 +66,3 @@ Tipo Company (pessoa jurídica)
 ## Insomia ✨
 Para quem usa o [Insomia](https://insomnia.rest/download) ou [Postman](https://www.postman.com/downloads/)
 temos essa [collection](https://github.com/jilcimar/simplified-bank/blob/main/docs/collection.json)!
-
-## Documentação 🚧
-A documentação dos endpoint, pode ser consultada aqui: https://github.com/tictobrasil/ticto-docs.
