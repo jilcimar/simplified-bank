@@ -14,6 +14,7 @@ Primeiro, copie o arquivo .env.example para o .env do projeto.
 ```bash
 $ cp .env.example .env
 ```
+> Após esse passo, você pode escolher rodar o seu projeto usando o `docker-compose` ou `sail`.
 #### Usando docker 🐳
 ```bash
 docker-compose up -d
