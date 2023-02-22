@@ -1,66 +1,70 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+## Banco Simplificado - BACK-END
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+Este projeto é uma API RESTFul de um "banco simplificado".
+A modelagem do Banco de Dados pode ser encontrada em: https://github.com/jilcimar/simplified-bank/blob/main/docs/der.png
 
-## About Laravel
+### Dependências 💻
+É necessário ter em sua máquina:
+- Docker
+- Docker Compose
+### Executando o projeto 🔧
+Primeiro, copie o arquivo .env.example para o .env do projeto.
+```bash
+$ cp .env.example .env
+```
+#### Usando docker 🐳
+```bash
+docker-compose up -d
+```
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+#### Usando Laravel Sail 🌟
+É necessário rodar o composer install (raiz do projeto):
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+```bash 
+$ composer install
+```
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+Após a instalação dos packages, é preciso subir os containers do docker.
+Para isso, foi usado o [Laravel Sail](https://laravel.com/docs/9.x/sail).
+```bash
+$ ./vendor/bin/sail up -d
+```
 
-## Learning Laravel
+Ao executar o comando:
+```bash
+$ docker ps
+```
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+é para termos os seguintes containers rodando:
+- Sail-8.1/app [simplified-bank-laravel.test-1]
+- Mysql/mysql-server:8.0 [simplified-bank-mysql-1]
+- Redis:alpine [simplified-bank-redis-1]
 
-You may also try the [Laravel Bootcamp](https://bootcamp.laravel.com), where you will be guided through building a modern Laravel application from scratch.
+Agora, entrando no container do "Sail-8.1/app" é só rodar o comando para executar as migrations e os seeds:
+```bash
+$ php artisan migrate --seed
+```
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains over 2000 video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+Foram cadastrados 2 usuários para testes, já com saldos nas suas respectivas carteiras. 
 
-## Laravel Sponsors
+```json
+    email: payer@email.com,
+    senha: password
+```
+Tipo Person (pessoa física)
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the Laravel [Patreon page](https://patreon.com/taylorotwell).
+```json
+    email: payee@email.com,
+    senha: password
+```
+Tipo Company (pessoa jurídica)
 
-### Premium Partners
 
-- **[Vehikl](https://vehikl.com/)**
-- **[Tighten Co.](https://tighten.co)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Cubet Techno Labs](https://cubettech.com)**
-- **[Cyber-Duck](https://cyber-duck.co.uk)**
-- **[Many](https://www.many.co.uk)**
-- **[Webdock, Fast VPS Hosting](https://www.webdock.io/en)**
-- **[DevSquad](https://devsquad.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel/)**
-- **[OP.GG](https://op.gg)**
-- **[WebReinvent](https://webreinvent.com/?utm_source=laravel&utm_medium=github&utm_campaign=patreon-sponsors)**
-- **[Lendio](https://lendio.com)**
+> As credenciais do banco são as que estão no seu arquivo .env do projeto.
 
-## Contributing
+## Insomia ✨
+Para quem usa o [Insomia](https://insomnia.rest/download) ou [Postman](https://www.postman.com/downloads/)
+temos essa [collection](https://github.com/jilcimar/simplified-bank/blob/main/docs/collection.json)!
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
-
-## Code of Conduct
-
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
-
-## Security Vulnerabilities
-
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
-
-## License
-
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+## Documentação 🚧
+A documentação dos endpoint, pode ser consultada aqui: https://github.com/tictobrasil/ticto-docs.

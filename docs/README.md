@@ -1,66 +1,137 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+# Documentação  📖
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
 
-## About Laravel
+### POST /transaction
+Endpoint para transferência de dinheiro entre os usuários.
+```json
+{
+    "value" : 100.00,
+    "payer" : 4,
+    "payee" : 15
+}
+```
+Resposta: 
+```json
+{
+    "data": {
+        "uuid": "1096223c-40dc-4afd-ae8c-5efd88c0a1c92023-02-21-11-02-49-45",
+        "payer": "payer@email.com",
+        "payee": "payee@email.com",
+        "value": 100,
+        "created_at": "21\/02\/2023 11:45:49"
+    }
+}
+```
+| Atributo | Descrição                                                                                  | Obrigatório | Tipo    | Valor padrão |
+|----------|--------------------------------------------------------------------------------------------|-------------|---------|--------------|
+| value    | Valor em centavos da transferência                                                         |    ✅         | integer | -            |
+|     payer     | ID do usuário "pagador" da transferência, deverá ser do tipo Person                        |     ✅           |     integer    | -            |
+|     payee     | ID do usuário "recebedor" da transferência, poderá ser de qualquer tipo, Company ou Person |     ✅           |     integer    | -            |
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+> É obrigatório ter um token de autenticação - Bearer Token
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+### POST /login
+Endpoint para login do usuário.
+```json
+{
+    "email": "carlos@example.com.br",
+    "password": "qySOOsa9ANQJ2W9@"
+}
+```
+Resposta: 
+```json
+{
+    "token": "1|49u1dVh2Fslwn0Hk6d6slV4WzNgZc6zV37sxAOSc"
+}
+```
+| Atributo | Descrição                                                                                  | Obrigatório | Tipo   | Valor padrão |
+|----------|--------------------------------------------------------------------------------------------|-------------|--------|--------------|
+| email    | E-mail do usuário cadastrado                                                               |    ✅         | string | -            |
+| password    | Senha do usuário cadastrado                                                                |     ✅           | string | -            |
+> É obrigatório ter um token de autenticação - Bearer Token
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+### POST /users
+Endpoint para cadastro de usuário.
+```json
+{
+    "name": "carlos",
+    "email": "carlos@example.com.br",
+    "password": "qySOOsa9ANQJ2W9@",
+    "password_confirmation" :"qySOOsa9ANQJ2W9@",
+    "type": "person",
+    "cpf": "46508612093",
+    "cnpj": null
+}
+```
+Resposta: 
+```json
+{
+	"name": "carlos",
+	"email": "carlos@example.com.br",
+	"type": "person",
+	"updated_at": "2023-02-20T13:23:53.000000Z",
+	"created_at": "2023-02-20T13:23:53.000000Z"
+}
+```
 
-## Learning Laravel
+| Atributo              | Descrição                                                                                                                                 | Obrigatório | Tipo   | Valor padrão |
+|-----------------------|-------------------------------------------------------------------------------------------------------------------------------------------|-------------|--------|--------------|
+| name                  | Nome do usuário                                                                                                                           |    ✅         | string | -            |
+| email                 | Email do usuário                                                                                                                          |     ✅         | string | -            |
+| password              | Senha do usuário, que deverá ter: <ul> <li>8 ou mais caracteres</li> <li>caracteres especiais</li> <li>Números</li> <li>Símbolos</li></ul> |     ✅         | string | -            |
+| password_confirmation | Confirmação da senha, deve ser igual ao atributo `password`                                                                               |     ✅         | string | -            |
+| type                  | Tipo do usuário, `Person` para pessoa física e `Company` para pessoa jurídica                                                             |     ✅         | string | -            |
+| cpf                   | CPF do usuário, obrigatório quando o `type` é `Person`                                                                                    |     ❌          | string | -            |
+| cnpj                  | CNPJ do usuário,  obrigatório quando o `type` é `Company`                              |     ❌          | string | -            |
+> Não é obrigatório ter um token de autenticação
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
-
-You may also try the [Laravel Bootcamp](https://bootcamp.laravel.com), where you will be guided through building a modern Laravel application from scratch.
-
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains over 2000 video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
-
-## Laravel Sponsors
-
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the Laravel [Patreon page](https://patreon.com/taylorotwell).
-
-### Premium Partners
-
-- **[Vehikl](https://vehikl.com/)**
-- **[Tighten Co.](https://tighten.co)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Cubet Techno Labs](https://cubettech.com)**
-- **[Cyber-Duck](https://cyber-duck.co.uk)**
-- **[Many](https://www.many.co.uk)**
-- **[Webdock, Fast VPS Hosting](https://www.webdock.io/en)**
-- **[DevSquad](https://devsquad.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel/)**
-- **[OP.GG](https://op.gg)**
-- **[WebReinvent](https://webreinvent.com/?utm_source=laravel&utm_medium=github&utm_campaign=patreon-sponsors)**
-- **[Lendio](https://lendio.com)**
-
-## Contributing
-
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
-
-## Code of Conduct
-
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
-
-## Security Vulnerabilities
-
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
-
-## License
-
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+### GET /users
+Listagem de todos os usuários cadastrados.
+```json
+{
+    "data": [
+        {
+            "id": 1,
+            "name": "User Payer 1",
+            "email": "payer@email.com"
+        },
+        {
+            "id": 2,
+            "name": "User Payee 1",
+            "email": "payee@email.com"
+        }
+    ],
+    "links": {
+        "first": "http:\/\/localhost\/api\/users?page=1",
+        "last": "http:\/\/localhost\/api\/users?page=1",
+        "prev": null,
+        "next": null
+    },
+    "meta": {
+        "current_page": 1,
+        "from": 1,
+        "last_page": 1,
+        "links": [
+            {
+                "url": null,
+                "label": "&laquo; Previous",
+                "active": false
+            },
+            {
+                "url": "http:\/\/localhost\/api\/users?page=1",
+                "label": "1",
+                "active": true
+            },
+            {
+                "url": null,
+                "label": "Next &raquo;",
+                "active": false
+            }
+        ],
+        "path": "http:\/\/localhost\/api\/users",
+        "per_page": 5,
+        "to": 2,
+        "total": 2
+    }
+}
+```
