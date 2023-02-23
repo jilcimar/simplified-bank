@@ -67,3 +67,11 @@ Tipo Company (pessoa jurídica)
 ## Insomia ✨
 Para quem usa o [Insomia](https://insomnia.rest/download) ou [Postman](https://www.postman.com/downloads/)
 temos essa [collection](https://github.com/jilcimar/simplified-bank/blob/main/docs/collection.json)!
+
+## Testes 🧪
+
+Para executar os testes, é preciso entrar no container da aplicação "Sail-8.1/app [simplified-bank-laravel.test-1]" e executar: 
+```bash
+./vendor/bin/pest
+```
+![img_1.png](img_1.png)
