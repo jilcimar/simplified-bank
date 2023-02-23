@@ -44,8 +44,8 @@ class TransactionRepository extends BaseRepository
             $payee->wallet->save();
 
 
-            $this->saveExtract($payer->wallet->id, $payer->wallet->amount);
-            $this->saveExtract($payee->wallet->id, $payee->wallet->amount);
+            $this->saveExtract($payer->wallet->id, $payer->wallet->amount, $resource);
+            $this->saveExtract($payee->wallet->id, $payee->wallet->amount, $resource);
 
             PaymentNotification::dispatch();
 
@@ -57,10 +57,11 @@ class TransactionRepository extends BaseRepository
         return new TransactionResource($resource);
     }
 
-    public function saveExtract(int $walletId, int $amount): void
+    public function saveExtract(int $walletId, int $amount, Transaction|Model $transaction): void
     {
         WalletExtract::create([
             'wallet_id' => $walletId,
+            'transaction_id' => $transaction->id,
             'amount' => $amount,
         ]);
     }

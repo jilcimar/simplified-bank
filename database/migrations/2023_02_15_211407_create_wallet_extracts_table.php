@@ -16,6 +16,7 @@ return new class extends Migration
         Schema::create('wallet_extracts', function (Blueprint $table) {
             $table->id();
             $table->foreignId('wallet_id')->constrained();
+            $table->foreignId('transaction_id')->constrained();
             $table->integer('amount');
             $table->timestamps();
             $table->softDeletes();

@@ -16,7 +16,8 @@ class WalletExtract extends Model
      */
     protected $fillable = [
         'amount',
-        'wallet_id'
+        'wallet_id',
+        'transaction_id'
     ];
 
     /**
