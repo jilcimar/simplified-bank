@@ -18,14 +18,14 @@ class UserRepository extends BaseRepository
     {
         parent::__construct(new User());
     }
-    public function beforeStore($attributes): JsonResource|User
+    public function beforeStore(array|Collection $attributes): JsonResource|User
     {
         $wallet = Wallet::create();
         $attributes['wallet_id'] = $wallet->id;
         return parent::beforeStore($attributes);
     }
 
-    public function filterAttributes($attributes): Collection|array
+    public function filterAttributes(array|Collection $attributes): Collection|array
     {
         if (isset($attributes['password'])) {
             $attributes['password'] = bcrypt($attributes['password']);
