@@ -74,4 +74,6 @@ Para executar os testes, é preciso entrar no container da aplicação "Sail-8.1
 ```bash
 ./vendor/bin/pest
 ```
+> É preciso ter rodado o `composer install`
+> 
 ![img_1.png](img_1.png)
