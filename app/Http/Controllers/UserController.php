@@ -8,7 +8,6 @@ use App\Models\User;
 use Illuminate\Support\Facades\Schema;
 use App\Repositories\Users\UserRepository;
 
-
 class UserController extends CrudController
 {
     use ExceptionResponse;
