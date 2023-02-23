@@ -34,7 +34,7 @@ class UserSeeder extends Seeder
                 'password' => bcrypt('password'),
                 'type' => UserType::Person->value,
                 'wallet_id' => $walletPayer->id,
-                'cpf' => str_replace('.', '', $faker->cpf)
+                'cpf' => str_replace(['.' , '-'], '', $faker->cpf)
             ]
         );
 
