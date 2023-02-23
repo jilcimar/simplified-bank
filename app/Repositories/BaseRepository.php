@@ -116,7 +116,7 @@ class BaseRepository
     /**
      * Return paginated collection
      */
-    public function all($queryParams): Collection|JsonResource|LengthAwarePaginator
+    public function all(): Collection|JsonResource|LengthAwarePaginator
     {
         return $this->model->paginate(25);
     }

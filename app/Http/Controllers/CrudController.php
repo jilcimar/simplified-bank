@@ -23,8 +23,7 @@ abstract class CrudController extends Controller
 
     public function index(): Collection|JsonResource|LengthAwarePaginator
     {
-        $queryParams = request()->query();
-        return $this->repository->all($queryParams);
+        return $this->repository->all();
     }
 
     public function store(): Model|JsonResponse|JsonResource

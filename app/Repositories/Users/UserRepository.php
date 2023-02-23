@@ -34,7 +34,7 @@ class UserRepository extends BaseRepository
         return $attributes;
     }
 
-    public function all($queryParams): JsonResource
+    public function all(): JsonResource
     {
         $users = QueryBuilder::for(User::class)->allowedFilters(
             AllowedFilter::partial('email', 'email'),
