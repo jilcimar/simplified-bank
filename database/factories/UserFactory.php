@@ -18,7 +18,7 @@ class UserFactory extends Factory
      */
     public function definition()
     {
-        $walletId = Wallet::create();
+        $walletId = Wallet::create(['amount' => 1000]);
 
         return [
             'name' => fake()->name(),

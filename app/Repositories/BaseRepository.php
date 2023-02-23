@@ -2,7 +2,6 @@
 
 namespace App\Repositories;
 
-use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Resources\Json\JsonResource;
 use Illuminate\Pagination\LengthAwarePaginator;
 use Illuminate\Support\Collection;
@@ -29,22 +28,6 @@ class BaseRepository
     public function find(string | int $id): Model | JsonResource | null
     {
         return $this->model->find($id);
-    }
-
-    /**
-     * Get Model by Column.
-     */
-    public function findBy(string $column, mixed $value): Model|null
-    {
-        return $this->model->where($column, $value)->first();
-    }
-
-    /**
-     * Get Model by Columns.
-     */
-    public function findByThrough(array $columns): Model|JsonResource|null
-    {
-        return $this->model->where($columns)->first();
     }
 
     /**

@@ -41,11 +41,12 @@ expect()->extend('toBeOne', function () {
 | global functions to help you to reduce the number of lines of code in your test files.
 |
 */
-function createUser()
+function createUser(string $type = 'person')
 {
     $user = \App\Models\User::factory()
         ->state([
             'password' => bcrypt('password'),
+            'type' => $type
         ])->create();
 
     return $user;

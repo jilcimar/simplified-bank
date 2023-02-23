@@ -38,7 +38,7 @@ abstract class CrudController extends Controller
         }
     }
 
-    public function show($id): Model | JsonResource | JsonResponse
+    public function show(int $id): Model | JsonResource | JsonResponse
     {
         $resource = $this->repository->find($id);
 
@@ -49,7 +49,7 @@ abstract class CrudController extends Controller
         return $resource;
     }
 
-    public function update($id)
+    public function update(int $id)
     {
         $resource = $this->repository->find($id);
 
@@ -61,7 +61,7 @@ abstract class CrudController extends Controller
         abort(404, trans('errors.not_found'));
     }
 
-    public function destroy($id): Model|JsonResource|JsonResponse
+    public function destroy(int $id): Model|JsonResource|JsonResponse
     {
         $resource = $this->repository->find($id);
 
